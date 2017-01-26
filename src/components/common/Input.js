@@ -25,7 +25,8 @@ const styles = {
     paddingLeft: 5,
     fontSize: 18,
     lineHeight: 23,
-    flex: 2
+    flex: 2,
+    fontFamily: 'Baskerville'
   },
   labelStyle: {
     fontSize: 18,

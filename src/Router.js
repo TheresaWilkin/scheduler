@@ -1,9 +1,18 @@
 import React from 'react';
 import { Scene, Router, Actions } from 'react-native-router-flux';
+import { setCustomText } from 'react-native-global-props';
 import LoginForm from './components/LoginForm';
 import TaskList from './components/TaskList';
 import TaskCreate from './components/TaskCreate';
 import TaskEdit from './components/TaskEdit';
+
+const customTextProps = {
+  style: {
+    fontFamily: 'Baskerville-Bold'
+  }
+};
+
+setCustomText(customTextProps);
 
 const RouterComponent = () => {
   return (
