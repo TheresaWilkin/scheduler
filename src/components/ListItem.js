@@ -1,21 +1,31 @@
 import React, { Component } from 'react';
-import { Text, View } from 'react-native';
+import { Text, View, TouchableWithoutFeedback } from 'react-native';
+import { Actions } from 'react-native-router-flux';
 import { CardSection } from './common';
 
 class ListItem extends Component {
+  onRowPress() {
+    const { task } = this.props;
+    Actions.taskEdit({ editTask: task });
+  }
+
   render() {
     const { task } = this.props;
     const date = new Date(task.dueDate).toDateString();
     return (
-      <CardSection style={{ flexDirection: 'column' }}>
-        <View style={{ flexDirection: 'row' }}>
-          <Text style={styles.titleStyle}>
-            {task.task}
-          </Text>
-          <Text style={styles.dateStyle}>{date}</Text>
+      <TouchableWithoutFeedback onPress={this.onRowPress.bind(this)}>
+        <View>
+          <CardSection style={{ flexDirection: 'column' }}>
+            <View style={{ flexDirection: 'row' }}>
+              <Text style={styles.titleStyle}>
+                {task.task}
+              </Text>
+              <Text style={styles.dateStyle}>{date}</Text>
+            </View>
+            <Text style={styles.detailStyle}>{task.description}</Text>
+          </CardSection>
         </View>
-        <Text style={styles.detailStyle}>{task.description}</Text>
-      </CardSection>
+      </TouchableWithoutFeedback>
     );
   }
 }

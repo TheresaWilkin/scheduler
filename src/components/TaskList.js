@@ -13,10 +13,6 @@ class TaskList extends Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    // nextProps are the next set of props that this component
-    // will be rendered with
-    // this.props is still the old set of props
-
     this.createDataSource(nextProps);
   }
 
@@ -44,8 +40,14 @@ class TaskList extends Component {
 }
 
 const mapStateToProps = state => {
-  const tasks = _.map(state.tasks, (val, uid) => {
+  let tasks = _.map(state.tasks, (val, uid) => {
     return { ...val, uid };
+  });
+
+  tasks = tasks.sort((a, b) => {
+    const aDate = new Date(a.dueDate).getTime();
+    const bDate = new Date(b.dueDate).getTime();
+    return aDate - bDate;
   });
 
   return { tasks };

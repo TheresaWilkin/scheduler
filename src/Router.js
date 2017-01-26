@@ -3,6 +3,7 @@ import { Scene, Router, Actions } from 'react-native-router-flux';
 import LoginForm from './components/LoginForm';
 import TaskList from './components/TaskList';
 import TaskCreate from './components/TaskCreate';
+import TaskEdit from './components/TaskEdit';
 
 const RouterComponent = () => {
   return (
@@ -24,6 +25,11 @@ const RouterComponent = () => {
           key="taskCreate"
           component={TaskCreate}
           title="Create Task"
+        />
+        <Scene
+          key="taskEdit"
+          component={TaskEdit}
+          title="Edit Task"
         />
       </Scene>
     </Router>
