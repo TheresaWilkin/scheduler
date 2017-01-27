@@ -9,13 +9,12 @@ import TaskForm from './TaskForm';
 
 class TaskCreate extends Component {
   onButtonPress() {
-    const { task, description, dueDate } = this.props;
+    const { task, description, dueDate, subtasks, dateCreated } = this.props;
 
-    this.props.taskCreate({ task, description, dueDate });
+    this.props.taskCreate({ task, description, dueDate, subtasks, dateCreated });
   }
 
   render() {
-    console.log(this.props.editTask);
     return (
       <Card>
         <TaskForm {...this.props} />
@@ -30,8 +29,9 @@ class TaskCreate extends Component {
 }
 
 const mapStateToProps = ({ taskCreatorForm }) => {
-  const { task, description, dueDate } = taskCreatorForm;
-  return { task, description, dueDate };
+  const { task, description, dueDate, subtasks, dateCreated } = taskCreatorForm;
+
+  return { task, description, dueDate, subtasks, dateCreated };
 };
 
 export default connect(mapStateToProps, { taskOnChange, taskCreate })(TaskCreate);

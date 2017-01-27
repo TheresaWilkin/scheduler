@@ -4,7 +4,8 @@ import {
   TASK_ONCHANGE,
   TASK_CREATE,
   TASKS_FETCH_SUCCESS,
-  TASK_SAVE_SUCCESS
+  TASK_SAVE_SUCCESS,
+  TASK_DELETE_SUCCESS
 } from './types';
 
 export const taskOnChange = ({ prop, value }) => {
@@ -14,13 +15,14 @@ export const taskOnChange = ({ prop, value }) => {
   };
 };
 
-export const taskCreate = ({ task, description, dueDate }) => {
-  console.log(task, description, dueDate);
+export const taskCreate = ({ task, description, dueDate, subtasks, dateCreated }) => {
   const { currentUser } = firebase.auth();
   const dueDateStr = dueDate.toString();
+  const dateCreatedStr = dateCreated.toString();
+
   return (dispatch) => {
   firebase.database().ref(`/users/${currentUser.uid}/tasks`)
-    .push({ task, description, dueDate: dueDateStr })
+    .push({ task, description, dueDate: dueDateStr, subtasks, dateCreated: dateCreatedStr })
     .then(() => {
       dispatch({ type: TASK_CREATE });
       Actions.taskList({ type: 'reset' });
@@ -39,11 +41,17 @@ export const tasksFetch = () => {
   };
 };
 
-export const taskSave = ({ task, description, dueDate, uid }) => {
+export const taskSave = ({ task, description, dueDate, subtasks, dateCreated, uid }) => {
   const { currentUser } = firebase.auth();
   return (dispatch) => {
     firebase.database().ref(`/users/${currentUser.uid}/tasks/${uid}`)
-      .set({ task, description, dueDate: dueDate.toString() })
+      .set({
+        task,
+        description,
+        dueDate: dueDate.toString(),
+        subtasks,
+        dateCreated: dateCreated.toString()
+      })
       .then(() => {
         dispatch({ type: TASK_SAVE_SUCCESS });
         Actions.taskList({ type: 'reset' });
@@ -54,10 +62,11 @@ export const taskSave = ({ task, description, dueDate, uid }) => {
 export const taskDelete = ({ uid }) => {
   const { currentUser } = firebase.auth();
 
-  return () => {
+  return (dispatch) => {
     firebase.database().ref(`/users/${currentUser.uid}/tasks/${uid}`)
       .remove()
       .then(() => {
+        dispatch({ type: TASK_DELETE_SUCCESS });
         Actions.taskList({ type: 'reset' });
       });
   };

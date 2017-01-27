@@ -13,9 +13,16 @@ class TaskEdit extends Component {
   }
 
   onButtonPress() {
-    const { task, description, dueDate } = this.props;
+    const { task, description, dueDate, dateCreated, subtasks } = this.props;
 
-    this.props.taskSave({ task, description, dueDate, uid: this.props.editTask.uid });
+    this.props.taskSave({
+      task,
+      description,
+      dueDate,
+      subtasks,
+      dateCreated,
+      uid: this.props.editTask.uid
+    });
   }
 
   onDeletePress() {
@@ -42,11 +49,12 @@ class TaskEdit extends Component {
 }
 
 const mapStateToProps = (state) => {
-  const { task, description } = state.taskCreatorForm;
-  let { dueDate } = state.taskCreatorForm;
+  const { task, description, subtasks } = state.taskCreatorForm;
+  let { dueDate, dateCreated } = state.taskCreatorForm;
   dueDate = new Date(dueDate);
+  dateCreated = new Date(dateCreated);
 
-  return { task, description, dueDate };
+  return { task, description, dueDate, dateCreated, subtasks };
 };
 
 export default connect(mapStateToProps, {

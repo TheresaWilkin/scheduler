@@ -44,12 +44,40 @@ const mapStateToProps = state => {
     return { ...val, uid };
   });
 
-  tasks = tasks.sort((a, b) => {
+  const newTasks = [];
+
+  tasks.forEach((taskObj) => {
+    if (taskObj.subtasks.length !== 0) {
+      const count = parseInt(taskObj.subtasks, 10);
+      const dueDate = new Date(taskObj.dueDate).getTime();
+      const dateCreated = new Date(taskObj.dateCreated).getTime();
+      const milliseconds = dueDate - dateCreated;
+      const distance = Math.floor(milliseconds / taskObj.subtasks);
+
+      for (let i = 1; i <= count; i++) {
+        const newSeconds = dateCreated + (distance * i);
+        const subDate = new Date(newSeconds);
+
+        const obj = {
+          task: `${taskObj.task} ${i}`,
+          description: taskObj.description,
+          dueDate: subDate,
+          subtasks: ''
+        };
+        newTasks.push(obj);
+      }
+      newTasks.push({ ...taskObj, task: `${taskObj.task} MAIN` });
+    } else {
+      newTasks.push(taskObj);
+    }
+  });
+
+  tasks = newTasks.sort((a, b) => {
     const aDate = new Date(a.dueDate).getTime();
     const bDate = new Date(b.dueDate).getTime();
     return aDate - bDate;
   });
-
+  
   return { tasks };
 };
 
