@@ -1,6 +1,8 @@
 # Scheduler
 
-Link: [add link]
+Link: https://appetize.io/app/jbc4jp6mmgt17eqhkgu1uryxrw?device=iphone5s&scale=75&orientation=portrait&osVersion=9.3
+
+<iframe src="https://appetize.io/embed/jbc4jp6mmgt17eqhkgu1uryxrw?device=iphone6plus&scale=100&autoplay=false&orientation=portrait&deviceColor=black" width="690px" height="1420px" frameborder="0" scrolling="no"></iframe>
 
 ## Description
 
