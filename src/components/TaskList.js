@@ -62,7 +62,8 @@ const mapStateToProps = state => {
           task: `${taskObj.task} ${i}`,
           description: taskObj.description,
           dueDate: subDate,
-          subtasks: ''
+          subtasks: '',
+          sub: true
         };
         newTasks.push(obj);
       }
@@ -77,7 +78,7 @@ const mapStateToProps = state => {
     const bDate = new Date(b.dueDate).getTime();
     return aDate - bDate;
   });
-  
+
   return { tasks };
 };
 

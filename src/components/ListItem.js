@@ -1,11 +1,16 @@
 import React, { Component } from 'react';
-import { Text, View, TouchableWithoutFeedback } from 'react-native';
+import { Text, View, TouchableWithoutFeedback, Alert } from 'react-native';
 import { Actions } from 'react-native-router-flux';
 import { CardSection, Circle } from './common';
 
 class ListItem extends Component {
   onRowPress() {
     const { task } = this.props;
+
+    if (task.sub) {
+      return Alert.alert('For multi-task items, please edit the MAIN task only.');
+    }
+
     Actions.taskEdit({ editTask: task });
   }
 
@@ -26,15 +31,18 @@ class ListItem extends Component {
       due = { backgroundColor: '#f1c40f' };
     }
 
+    let title = (<Text style={styles.titleStyle}>{task.task}</Text>);
+    if (task.sub) {
+      title = (<Text style={styles.subtaskStyle}>{task.task}</Text>);
+    }
+
     return (
       <TouchableWithoutFeedback onPress={this.onRowPress.bind(this)}>
         <View>
           <CardSection style={{ flexDirection: 'column' }}>
             <Circle style={due} />
             <View style={{ flexDirection: 'row' }}>
-              <Text style={styles.titleStyle}>
-                {task.task}
-              </Text>
+              {title}
               <Text style={styles.dateStyle}>{date}</Text>
             </View>
             <Text style={styles.detailStyle}>{task.description}</Text>
@@ -63,6 +71,12 @@ const styles = {
     paddingLeft: 15,
     fontFamily: 'Baskerville'
   },
+  subtaskStyle: {
+    fontSize: 18,
+    paddingLeft: 15,
+    flex: 2,
+    fontFamily: 'Baskerville'
+  }
 };
 
 export default ListItem;
