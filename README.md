@@ -10,19 +10,19 @@ A task scheduler with the ability to break large tasks into smaller subtasks wit
 
 ### Homepage/Login
 
-![full page](/client/assets/image1.png)
+![login](/src/images/login.png)
 
 ### Task List
 
-![main page](/client/assets/image2.png)
+![task list](/src/images/taskList.png)
 
 ### Task Create
 
-![main page](/client/assets/image2.png)
+![task create](/src/images/taskAdd.png)
 
 ### Task Edit
 
-![main page](/client/assets/image2.png)
+![task edit](/src/images/taskEdit.png)
 
 ## Tech Stack
 
